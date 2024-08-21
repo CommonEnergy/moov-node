@@ -16,7 +16,7 @@ export namespace PAYMENT_METHODS_TYPE {
 /**
  * Describes a Payment Method.
  * @typedef PaymentMethod
- * @property {string} paymentMethodID - Payment method identifier
+ * @property {string} paymentMethodID - Payment Method identifier
  * @property {PAYMENT_METHODS_TYPE} paymentMethodType - Fingerprint of Bank Account
  * @property {WalletPaymentType} [wallet] - Optional wallet object when payment method type is 'moov-wallet'.
  * @property {BankAccount} [bankAccount] - Optional bank account object when payment method type is one of 'ach-debit-fund', 'ach-debit-collect', ach-credit-standard', or 'ach-credit-same-day'.
@@ -49,6 +49,7 @@ export class PaymentMethods {
     moov: any;
     /**
      * Get the specified payment method associated with a Moov account.
+     * The `PAYMENT_METHODS_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account on which to request bank account
      * @param {string} paymentMethodID - ID of the payment method to retrieve. Can be one of `walletID`, `cardID`, or `bankAccountID`.
@@ -59,6 +60,7 @@ export class PaymentMethods {
     get(accountID: string, paymentMethodID: string): Promise<PaymentMethod>;
     /**
      * Retrieve all of the payment methods associated with a Moov account.
+     * The `PAYMENT_METHODS_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account on which to request bank account
      * @returns {Promise<PaymentMethod[]>}

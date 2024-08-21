@@ -1,4 +1,4 @@
-export var unused: {};
+export const unused: {};
 export type CardDetails = {
     /**
      * -An optional override of the default card statement descriptor for a single transfer

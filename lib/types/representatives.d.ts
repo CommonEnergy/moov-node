@@ -91,9 +91,9 @@
  */
 /**
  * @typedef RepresentativeBirthDate
- * @property {number} day
- * @property {number} month
- * @property {number} year - 4 digit year
+ * @property {number} day - 1 or 2 digit day of birth
+ * @property {number} month - 1 or 2 digit month of birth
+ * @property {number} year - 4 digit year of birth
  *
  * @tag Representatives
  */
@@ -106,8 +106,8 @@
  */
 /**
  * @typedef RepresentativeGovernmentID
- * @property {GovernmentID} ssn
- * @property {GovernmentID} itin
+ * @property {GovernmentID} ssn - Social Security Number
+ * @property {GovernmentID} itin - Individual Taxpayer Identification Number
  *
  * @tag Representatives
  */
@@ -116,9 +116,9 @@
  * @property {RepresentativeName} name - Name for an individual
  * @property {RepresentativePhone} phone - Phone for an individual
  * @property {string} email - Email Address.  string <email> <= 255 characters
- * @property {RepresentativeAddress} address - Address for an individual.
- * @property {RepresentativeBirthDate} birthDate - Birthdate for an individual
- * @property {RepresentativeGovernmentID} governmentID
+ * @property {RepresentativeAddress} address - Address for an individual
+ * @property {RepresentativeBirthDate} birthDate - Birth date for an individual
+ * @property {RepresentativeGovernmentID} governmentID - Social Security Number, or Individual Taxpayer Identification Number
  * @property {RepresentativeResponsibilities} responsibilities - Describes the job responsibilities of an individual
  *
  * @tag Representatives
@@ -132,6 +132,8 @@ export class Representatives {
     moov: any;
     /**
      * Create representative
+     * The `REPRESENTATIVE_WRITE` scope enum is required when making a request from the browser.
+     *
      * @param {string} accountID - Account on which to add representative
      * @param {RepresentativeCreateUpdate} representative - Representative to add
      * @returns {Promise<Representative>}
@@ -141,6 +143,8 @@ export class Representatives {
     create(accountID: string, representative: RepresentativeCreateUpdate): Promise<Representative>;
     /**
      * List representatives
+     * The `REPRESENTATIVE_READ` scope enum is required when making a request from the browser.
+     *
      * @param {string} accountID - Account on which to add representative
      * @returns {Promise<Representative[]>}
      *
@@ -149,6 +153,8 @@ export class Representatives {
     list(accountID: string): Promise<Representative[]>;
     /**
      * Retrieve a specific representative associated with a given Moov account.
+     * The `REPRESENTATIVE_READ` scope enum is required when making a request from the browser.
+     *
      * @param {string} accountID - Account on which to add representative
      * @param {string} representativeID - Identifier of representative to retrieve
      * @returns {Promise<Representative>}
@@ -158,6 +164,8 @@ export class Representatives {
     get(accountID: string, representativeID: string): Promise<Representative>;
     /**
      * Deletes a business representative associated with a Moov account.
+     * The `REPRESENTATIVE_WRITE` scope enum is required when making a request from the browser.
+     *
      * @param {string} accountID - Account on which to add representative
      * @param {string} representativeID - Identifier of representative to retrieve
      * @returns {Promise<void>}
@@ -167,6 +175,8 @@ export class Representatives {
     delete(accountID: string, representativeID: string): Promise<void>;
     /**
      * Update a specific representative.
+     * The `REPRESENTATIVE_WRITE` scope enum is required when making a request from the browser.
+     *
      * @param {string} accountID - Account on which to add representative
      * @param {string} representativeID - Identifier of representative to retrieve
      * @param {RepresentativeCreateUpdate} representative - Representative to add
@@ -304,10 +314,16 @@ export type RepresentativeResponsibilities = {
     jobTitle: string;
 };
 export type RepresentativeBirthDate = {
+    /**
+     * - 1 or 2 digit day of birth
+     */
     day: number;
+    /**
+     * - 1 or 2 digit month of birth
+     */
     month: number;
     /**
-     * - 4 digit year
+     * - 4 digit year of birth
      */
     year: number;
 };
@@ -322,7 +338,13 @@ export type GovernmentID = {
     lastFour: string;
 };
 export type RepresentativeGovernmentID = {
+    /**
+     * - Social Security Number
+     */
     ssn: GovernmentID;
+    /**
+     * - Individual Taxpayer Identification Number
+     */
     itin: GovernmentID;
 };
 export type RepresentativeCreateUpdate = {
@@ -339,13 +361,16 @@ export type RepresentativeCreateUpdate = {
      */
     email: string;
     /**
-     * - Address for an individual.
+     * - Address for an individual
      */
     address: RepresentativeAddress;
     /**
-     * - Birthdate for an individual
+     * - Birth date for an individual
      */
     birthDate: RepresentativeBirthDate;
+    /**
+     * - Social Security Number, or Individual Taxpayer Identification Number
+     */
     governmentID: RepresentativeGovernmentID;
     /**
      * - Describes the job responsibilities of an individual

@@ -140,16 +140,16 @@ export namespace REQUIREMENT_ERROR_CODE {
  * @tag Capabilities
  */
 /**
- * Represents individual and business data necessary to facilitate the enabling of a capability for an account
+ * Represents individual and business data necessary to facilitate the enabling of a capability for an account.
  * @typedef Requirement
- * @property {Array.<CAPABILITY_REQUIREMENT>} currentlyDue
- * @property {Array.<RequirementError>} errors
+ * @property {Array.<CAPABILITY_REQUIREMENT>} currentlyDue - List of required documents and data
+ * @property {Array.<RequirementError>} errors - List of missing requirements
  * @tag Capabilities
  */
 /**
  * @typedef RequirementError
- * @property {Array.<CAPABILITY_REQUIREMENT>} requirement
- * @property {Array.<REQUIREMENT_ERROR_CODE>} errorCode
+ * @property {Array.<CAPABILITY_REQUIREMENT>} requirement - The unique ID of the missing requirement
+ * @property {Array.<REQUIREMENT_ERROR_CODE>} errorCode - List of relevant error codes (for example, `invalid-value`)
  *
  * @tag Capabilities
  */
@@ -161,7 +161,8 @@ export class Capabilities {
     constructor(moov: any);
     moov: any;
     /**
-     * Request a capability to be added to an account
+     * Request a capability to be added to an account.
+     * The `CAPABILITIES_WRITE` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account on which to request capabilities
      * @param {CAPABILITIES[]} capabilities - One or more capability to request
@@ -172,6 +173,7 @@ export class Capabilities {
     requestCapabilities(accountID: string, capabilities: CAPABILITIES[]): Promise<Capability[]>;
     /**
      * Retrieve a capability of an account
+     * The `CAPABILITIES_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account on which to request capabilities
      * @param {CAPABILITIES} capability - Capability to retrieve
@@ -182,6 +184,7 @@ export class Capabilities {
     get(accountID: string, capability: any): Promise<Capability>;
     /**
      * List capabilities on an account
+     * The `CAPABILITIES_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account on which to request capabilities
      * @returns {Promise<Capability[]>}
@@ -191,7 +194,7 @@ export class Capabilities {
     list(accountID: string): Promise<Capability[]>;
     /**
      * Disable a capability of an account
-     *
+     * The `CAPABILITIES_WRITE` scope enum is required when making a request from the browser.
      * @param {string} accountID - Account on which to request capabilities
      * @param {CAPABILITIES} capability - Capability to retrieve
      * @returns {Promise<void>}
@@ -238,14 +241,26 @@ export type Capability = {
     disabledOn: Date;
 };
 /**
- * Represents individual and business data necessary to facilitate the enabling of a capability for an account
+ * Represents individual and business data necessary to facilitate the enabling of a capability for an account.
  */
 export type Requirement = {
+    /**
+     * - List of required documents and data
+     */
     currentlyDue: Array<CAPABILITY_REQUIREMENT>;
+    /**
+     * - List of missing requirements
+     */
     errors: Array<RequirementError>;
 };
 export type RequirementError = {
+    /**
+     * - The unique ID of the missing requirement
+     */
     requirement: Array<CAPABILITY_REQUIREMENT>;
+    /**
+     * - List of relevant error codes (for example, `invalid-value`)
+     */
     errorCode: Array<REQUIREMENT_ERROR_CODE>;
 };
 //# sourceMappingURL=capabilities.d.ts.map

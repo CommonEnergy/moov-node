@@ -37,7 +37,7 @@ export namespace WALLET_TRANSACTION_STATUS {
  * @property {string} transactionID - UUID v4
  * @property {WALLET_TRANSACTION_TYPE} transactionType - wallet transaction type.
  * @property {WALLET_TRANSACTION_SOURCE_TYPE} sourceType - where the transaction originated.
- * @property {string} sourceID - ID of the source Moov object to which this transaction is related. Can be one of [walletID](https://docs.moov.io/api/#tag/Wallets/operation/getWalletForAccount), [cardID](https://docs.moov.io/api/#tag/Cards/operation/getCard), or [bankAccountID](https://docs.moov.io/api/#tag/Bank-accounts/operation/getBank).
+ * @property {string} sourceID - ID of the source Moov object to which this transaction is related. Can be one of [walletID](/api/sources/wallets/list/), [cardID](/api/sources/cards/list/), or [bankAccountID](/api/sources/bank-accounts/list/).
  * @property {WALLET_TRANSACTION_STATUS} status - wallet transaction status.
  * @property {string} memo - Detailed description of the transaction.
  * @property {string} createdOn - Date transaction was created.
@@ -72,6 +72,7 @@ export class Wallets {
     moov: any;
     /**
      * Get information on a specific Moov wallet (e.g., the available balance).
+     * The `WALLETS_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account on which to request wallet
      * @param {string} walletID - The ID for the wallet associated with an account
@@ -82,6 +83,7 @@ export class Wallets {
     get(accountID: string, walletID: string): Promise<Wallet>;
     /**
      * List the wallets associated with a Moov account.
+     * The `WALLETS_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account on which to request wallets
      * @returns {Promise<Wallet[]>}
@@ -91,6 +93,7 @@ export class Wallets {
     list(accountID: string): Promise<Wallet[]>;
     /**
      * Get the details of a wallet transaction.
+     * The `WALLETS_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - UUID v4
      * @param {string} walletID - UUID v4
@@ -102,6 +105,7 @@ export class Wallets {
     getTransaction(accountID: string, walletID: string, transactionID: string): Promise<WalletTransaction>;
     /**
      * List the transactions in a wallet.
+     * The `WALLETS_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - UUID v4
      * @param {string} walletID - UUID v4
@@ -143,7 +147,7 @@ export type WalletTransaction = {
      */
     sourceType: any;
     /**
-     * - ID of the source Moov object to which this transaction is related.
+     * - ID of the source Moov object to which this transaction is related. Can be one of [walletID](/api/sources/wallets/list/), [cardID](/api/sources/cards/list/), or [bankAccountID](/api/sources/bank-accounts/list/).
      */
     sourceID: string;
     /**

@@ -1,5 +1,5 @@
 /**
- * Available scopes to request on OAuth tokens.
+ * For client-side integration, you'll need to request scopes when generating an OAuth token. See available scopes below:
  */
 export type SCOPES = any;
 export namespace SCOPES {
