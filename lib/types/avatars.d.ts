@@ -10,7 +10,8 @@ export class Avatars {
      */
     private moov;
     /**
-     * Gets a binary represention of an avatar.
+     * Gets a binary representation of an avatar.
+     * The `PROFILE_ENRICHMENT_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} uniqueId - Any unique ID associated with an account such as AccountID, RepresentativeID, Routing Number, or User ID
      * @returns {Promise<Blob>} - Binary representation of the avatar.

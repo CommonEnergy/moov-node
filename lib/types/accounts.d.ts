@@ -197,7 +197,7 @@
  * @tag Accounts
  */
 /**
- * A token that can then be used to accept Moov's Terms of Service. Must be generated from a web browser. See https://docs.moov.io/moovjs/accounts/accounts/#platform-agreement for more details.
+ * A token that can then be used to accept Moov's Terms of Service. Must be generated from a web browser. See the [Moovjs](/moovjs/accounts/accounts/#platform-terms-of-service-agreement) documentation for more details.
  * @typedef TermsOfServiceToken
  * @property {string} token - An encrypted value used to record acceptance of Moov's Terms of Service
  * @tag Accounts
@@ -214,36 +214,36 @@
 /**
  * Profile for a Moov acocunt. May be business or individual.
  * @typedef Profile
- * @property {BusinessProfile} [business]
- * @property {IndividualProfile} [individual]
+ * @property {BusinessProfile} [business] - A business account
+ * @property {IndividualProfile} [individual] - An individual account
  * @tag Accounts
  */
 /**
  * Describes a business account.
  * @typedef BusinessProfile
- * @property {string} legalBusinessName
- * @property {string} doingBusinessAs
- * @property {"soleProprietorship"|"unincorporatedAssociation"|"trust"|"publicCorporation"|"privateCorporation"|"privateCorporation"|"llc"|"partnership"|"unincorporatedNonProfit"|"incorporatedNonProfit"} businessType
- * @property {Address} address
- * @property {Phone} phone
- * @property {string} email
- * @property {string} website
- * @property {string} description
- * @property {boolean} taxIDProvided - True if business's tax ID has been provided
+ * @property {string} legalBusinessName - Business's legal name
+ * @property {string} doingBusinessAs - Business's trade name (if different than the legal name)
+ * @property {"soleProprietorship"|"unincorporatedAssociation"|"trust"|"publicCorporation"|"privateCorporation"|"privateCorporation"|"llc"|"partnership"|"unincorporatedNonProfit"|"incorporatedNonProfit"} businessType - The legal registered type of the business
+ * @property {Address} address - Business's address
+ * @property {Phone} phone - Business's phone number
+ * @property {string} email - Business's email
+ * @property {string} website - Business's website
+ * @property {string} description - Description of the business
+ * @property {boolean} taxIDProvided - `true` if business's tax ID has been provided
  * @property {Representative[]} representatives
- * @property {boolean} ownersProvided - True if business owner(s) have been provided
- * @property {IndustryCodes} industryCodes
+ * @property {boolean} ownersProvided - `true` if business owner(s) have been provided
+ * @property {IndustryCodes} industryCodes - Business's industry code (for example, `mcc`)
  * @tag Accounts
  */
 /**
  * Describes the individual associated with a non-business account.
  * @typedef IndividualProfile
- * @property {Name} name
- * @property {Phone} phone
- * @property {string} email
- * @property {Address} address
- * @property {boolean} birthDateProvided - True if individual's birth date has been provided
- * @property {boolean} governmentIDProvided - True if individual's government-issued ID has been provided
+ * @property {Name} name - Individual's name
+ * @property {Phone} phone - Individual's phone number
+ * @property {string} email - Individual's email address
+ * @property {Address} address - Individual's address
+ * @property {boolean} birthDateProvided - `true` if individual's birth date has been provided
+ * @property {boolean} governmentIDProvided - `true` if individual's government-issued ID has been provided
  * @tag Accounts
  */
 /**
@@ -255,20 +255,20 @@
 /**
  * Standard industry codes for businesses.
  * @typedef IndustryCodes
- * @property {string} naics
- * @property {string} sic
- * @property {string} mcc
+ * @property {string} naics - North American Industry Classification System
+ * @property {string} sic - Standard Industry Classification
+ * @property {string} mcc - Merchant Category Codes
  * @tag Accounts
  */
 /**
  * Describes an individual who represents a business account.
  * @typedef Representative
- * @property {Name} name
- * @property {Phone} phone
- * @property {string} email
- * @property {Address} address
- * @property {boolean} birthDateProvided - True if individual's birth date has been provided
- * @property {boolean} governmentIDProvided - True if individual's government-issued ID has been provided
+ * @property {Name} name - Representative's first and last name
+ * @property {Phone} phone - Representative's phone number
+ * @property {string} email - Representative's email address
+ * @property {Address} address - Representative's address
+ * @property {boolean} birthDateProvided - `true` if individual's birth date has been provided
+ * @property {boolean} governmentIDProvided - `true` if individual's government-issued ID has been provided
  * @property {Responsibility[]} responsibilities
  * @property {string} createdOn - Date representative was recorded
  * @property {string} updatedOn - Date representative was last updated
@@ -278,10 +278,10 @@
 /**
  * Describes the responsibilities associated with a business representative.
  * @typedef Responsibility
- * @property {boolean} isController
- * @property {boolean} isOwner
- * @property {number} ownershipPercentage - Required if `isOwner` is true
- * @property {string} jobTitle
+ * @property {boolean} isController - `true` if representative  has significant management responsibilities
+ * @property {boolean} isOwner - `true` if representative owns ≥25% of the business
+ * @property {number} ownershipPercentage - % of business representative owns (required if `isOwner` is `true`)
+ * @property {string} jobTitle - Job title of representative (for example, CEO)
  * @tag Accounts
  */
 /**
@@ -293,10 +293,10 @@
 /**
  * Describes customer support contact information for a business account.
  * @typedef CustomerSupport
- * @property {Phone} phone
- * @property {string} email
- * @property {Address} address
- * @property {string} website
+ * @property {Phone} phone - Customer support phone number
+ * @property {string} email - Customer support email
+ * @property {Address} address - Customer support address
+ * @property {string} website - Customer support website
  * @tag Accounts
  */
 /**
@@ -311,7 +311,7 @@
  */
 /**
  * @typedef Countries
- * @property {string[]} countries
+ * @property {string[]} countries - Countries of operation for an account
  * @tag Accounts
  */
 /**
@@ -333,7 +333,7 @@ export class Accounts {
     moov: any;
     /**
      * Create a new connected account.
-     * @tag Accounts
+     * The `ACCOUNTS_CREATE` scope enum is required when making a request from the browser.
      *
      * @param {AccountCreate} account - New account details
      * @returns {Promise<Account>}
@@ -342,6 +342,7 @@ export class Accounts {
     create(account: AccountCreate): Promise<Account>;
     /**
      * Retrieves details for the list of accounts.
+     * The `ACCOUNTS_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account to query
      * @param {AccountListCriteria} criteria - Optional criteria to limit the list returned.
@@ -351,6 +352,7 @@ export class Accounts {
     list(accountID: string, criteria: AccountListCriteria): Promise<Account[]>;
     /**
      * Retrieves details for the account with the specified ID.
+     * The `PROFILE_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} connectedAccountID - User account to query
      * @returns {Promise<Account>}
@@ -359,6 +361,7 @@ export class Accounts {
     get(connectedAccountID: string): Promise<Account>;
     /**
      * Updates an existing account. Requires a complete Account object.
+     * The `PROFILE_WRITE` scope enum is required when making a request from the browser.
      *
      * @param {Account} account - Account to update
      * @returns {Promise<Account>}
@@ -369,6 +372,7 @@ export class Accounts {
     /**
      * Updates an existing account. Does not require a complete Account object,
      * but the `accountID` property is required.
+     * The `PROFILE_WRITE` scope enum is required when making a request from the browser.
      *
      * @param {Account} account - Account to update
      * @returns {Promise<Account>}
@@ -377,6 +381,7 @@ export class Accounts {
     patch(account: Account): Promise<Account>;
     /**
      * Retrieve the specified countries of operation for an account.
+     * The `PROFILE_READ` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account to query
      * @returns {Promise<Countries>}
@@ -385,9 +390,10 @@ export class Accounts {
     getCountries(accountID: string): Promise<Countries>;
     /**
      * Assign the countries of operation for an account. This endpoint will always overwrite the previously assigned values.
+     * The `PROFILE_WRITE` scope enum is required when making a request from the browser.
      *
      * @param {string} accountID - Account to query
-     * @param {Countries} countries - Countries to add to the account.
+     * @param {Countries} countries - Countries to add to the account
      * @returns {Promise<Countries>}
      * @tag Accounts
      */
@@ -473,7 +479,7 @@ export type AccountCreate = {
     settings: AccountSettings | null;
 };
 /**
- * A token that can then be used to accept Moov's Terms of Service. Must be generated from a web browser. See https://docs.moov.io/moovjs/accounts/accounts/#platform-agreement for more details.
+ * A token that can then be used to accept Moov's Terms of Service. Must be generated from a web browser. See the [Moovjs](/moovjs/accounts/accounts/#platform-terms-of-service-agreement) documentation for more details.
  */
 export type TermsOfServiceToken = {
     /**
@@ -485,55 +491,112 @@ export type TermsOfServiceToken = {
  * A person's name.
  */
 export type Name = {
+    /**
+     * - A person's first name
+     */
     firstName: string;
+    /**
+     * - A person's middle name
+     */
     middleName: string;
+    /**
+     * - A person's last name
+     */
     lastName: string;
+    /**
+     * - A person's suffix
+     */
     suffix: string;
 };
 /**
  * Profile for a Moov acocunt. May be business or individual.
  */
 export type Profile = {
+    /**
+     * - A business account
+     */
     business?: BusinessProfile;
+    /**
+     * - An individual account
+     */
     individual?: IndividualProfile;
 };
 /**
  * Describes a business account.
  */
 export type BusinessProfile = {
+    /**
+     * - Business's legal name
+     */
     legalBusinessName: string;
+    /**
+     * - Business's trade name (if different than the legal name)
+     */
     doingBusinessAs: string;
+    /**
+     * - The legal registered type of the business
+     */
     businessType: "soleProprietorship" | "unincorporatedAssociation" | "trust" | "publicCorporation" | "privateCorporation" | "privateCorporation" | "llc" | "partnership" | "unincorporatedNonProfit" | "incorporatedNonProfit";
+    /**
+     * - Business's address
+     */
     address: Address;
+    /**
+     * - Business's phone number
+     */
     phone: Phone;
+    /**
+     * - Business's email
+     */
     email: string;
+    /**
+     * - Business's website
+     */
     website: string;
+    /**
+     * - Description of the business
+     */
     description: string;
     /**
-     * - True if business's tax ID has been provided
+     * - `true` if business's tax ID has been provided
      */
     taxIDProvided: boolean;
     representatives: Representative[];
     /**
-     * - True if business owner(s) have been provided
+     * - `true` if business owner(s) have been provided
      */
     ownersProvided: boolean;
+    /**
+     * - Business's industry code (for example, `mcc`)
+     */
     industryCodes: IndustryCodes;
 };
 /**
  * Describes the individual associated with a non-business account.
  */
 export type IndividualProfile = {
+    /**
+     * - Individual's name
+     */
     name: Name;
+    /**
+     * - Individual's phone number
+     */
     phone: Phone;
+    /**
+     * - Individual's email address
+     */
     email: string;
+    /**
+     * - Individual's address
+     */
     address: Address;
     /**
-     * - True if individual's birth date has been provided
+     * - `true` if individual's birth date has been provided
      */
     birthDateProvided: boolean;
     /**
-     * - True if individual's government-issued ID has been provided
+     * - `true` if individual's government-issued ID has been provided
      */
     governmentIDProvided: boolean;
 };
@@ -551,24 +614,45 @@ export type Phone = {
  * Standard industry codes for businesses.
  */
 export type IndustryCodes = {
+    /**
+     * - North American Industry Classification System
+     */
     naics: string;
+    /**
+     * - Standard Industry Classification
+     */
     sic: string;
+    /**
+     * - Merchant Category Codes
+     */
     mcc: string;
 };
 /**
  * Describes an individual who represents a business account.
  */
 export type Representative = {
+    /**
+     * - Representative's first and last name
+     */
     name: Name;
+    /**
+     * - Representative's phone number
+     */
     phone: Phone;
+    /**
+     * - Representative's email address
+     */
     email: string;
+    /**
+     * - Representative's address
+     */
     address: Address;
     /**
-     * - True if individual's birth date has been provided
+     * - `true` if individual's birth date has been provided
      */
     birthDateProvided: boolean;
     /**
-     * - True if individual's government-issued ID has been provided
+     * - `true` if individual's government-issued ID has been provided
      */
     governmentIDProvided: boolean;
     responsibilities: Responsibility[];
@@ -589,12 +673,21 @@ export type Representative = {
  * Describes the responsibilities associated with a business representative.
  */
 export type Responsibility = {
+    /**
+     * - `true` if representative  has significant management responsibilities
+     */
     isController: boolean;
+    /**
+     * - `true` if representative owns ≥25% of the business
+     */
     isOwner: boolean;
     /**
-     * - Required if `isOwner` is true
+     * - % of business representative owns (required if `isOwner` is `true`)
      */
     ownershipPercentage: number;
+    /**
+     * - Job title of representative (for example, CEO)
+     */
     jobTitle: string;
 };
 /**
@@ -610,9 +703,21 @@ export type AccountVerification = {
  * Describes customer support contact information for a business account.
  */
 export type CustomerSupport = {
+    /**
+     * - Customer support phone number
+     */
     phone: Phone;
+    /**
+     * - Customer support email
+     */
     email: string;
+    /**
+     * - Customer support address
+     */
     address: Address;
+    /**
+     * - Customer support website
+     */
     website: string;
 };
 export type AccountSettings = {
@@ -628,6 +733,9 @@ export type CardPaymentSettings = {
     statementDescriptor: string;
 };
 export type Countries = {
+    /**
+     * - Countries of operation for an account
+     */
     countries: string[];
 };
 export type AccountListCriteria = {

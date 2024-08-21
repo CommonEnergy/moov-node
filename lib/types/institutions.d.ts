@@ -8,8 +8,8 @@
  * @property {string} recordTypeCode - RecordTypeCode The code indicating the ABA number to be used to route or send ACH items to the RDFI - 0 = Institution is a Federal Reserve Bank - 1 = Send items to customer routing number - 2 = Send items to customer using new routing number field
  * @property {string} revised - Revised Date of last revision: YYYYMMDD, or blank
  * @property {string} newRoutingNumber - Institution's new routing number resulting from a merger or renumber
- * @property {string} customerName
- * @property {string} phoneNumber
+ * @property {string} customerName - Customer's name
+ * @property {string} phoneNumber - Phone number
  * @property {string} statusCode - Code is based on the customers receiver code
  * @property {string} viewCode - ViewCode is current view
  * @property {ACHInstitutionLocation} location - Location is the delivery address
@@ -63,7 +63,7 @@
  * @typedef WireInstitution
  * @property {string} routingNumber - Routing number for an Wire institution
  * @property {string} telegraphicName - The short name of financial institution
- * @property {string} customerName
+ * @property {string} customerName - Customer's name
  * @property {WireInstitutionLocation} location - Location is the delivery address
  * @property {string} fundsTransferStatus - Designates funds transfer status  - Y - Eligible  - N - Ineligible
  * @property {string} fundsSettlementOnlyStatus - Designates funds settlement only status  - S - Settlement-Only
@@ -98,8 +98,8 @@
 /**
  * ACH and Wire Institution participants
  * @typedef InstitutionParticipants
- * @property {ACHInstitution[]} [achParticipants]
- * @property {WireInstitution[]} [wireParticipants]
+ * @property {ACHInstitution[]} [achParticipants] - Array of ACH institutions
+ * @property {WireInstitution[]} [wireParticipants] - Array of Wire institutions
  *
  * @tag Institutions
  */
@@ -112,8 +112,9 @@ export class Institutions {
     moov: any;
     /**
      * Get information on a financial institution for ACH
+     * The `FED_READ` scope enum is required when making a request from the browser.
      *
-     * @param {ACHInstitutionSearchCriteria} criteria - Criteria for available search parameters.
+     * @param {ACHInstitutionSearchCriteria} criteria - Criteria for available search parameters
      * @returns {Promise<InstitutionParticipants>}
      *
      * @tag Institutions
@@ -121,8 +122,9 @@ export class Institutions {
     getACHInstitution(criteria: ACHInstitutionSearchCriteria): Promise<InstitutionParticipants>;
     /**
      * Get information on a financial institution for WIRE
+     * The `FED_READ` scope enum is required when making a request from the browser.
      *
-     * @param {ACHInstitutionSearchCriteria} criteria - Criteria for available search parameters.
+     * @param {ACHInstitutionSearchCriteria} criteria - Criteria for available search parameters
      * @returns {Promise<InstitutionParticipants>}
      *
      * @tag Institutions
@@ -130,8 +132,9 @@ export class Institutions {
     getWireInstitution(criteria: ACHInstitutionSearchCriteria): Promise<InstitutionParticipants>;
     /**
      * Get information on a financial institution
+     * The `FED_READ` scope enum is required when making a request from the browser.
      *
-     * @param {ACHInstitutionSearchCriteria} criteria - Criteria for available search parameters.
+     * @param {ACHInstitutionSearchCriteria} criteria - Criteria for available search parameters
      * @param {string} rail - The specific rail to check on, 'ach' or 'wire'.
      * @returns {Promise<InstitutionParticipants>}
      *
@@ -167,7 +170,13 @@ export type ACHInstitution = {
      * - Institution's new routing number resulting from a merger or renumber
      */
     newRoutingNumber: string;
+    /**
+     * - Customer's name
+     */
     customerName: string;
+    /**
+     * - Phone number
+     */
     phoneNumber: string;
     /**
      * - Code is based on the customers receiver code
@@ -240,6 +249,9 @@ export type WireInstitution = {
      * - The short name of financial institution
      */
     telegraphicName: string;
+    /**
+     * - Customer's name
+     */
     customerName: string;
     /**
      * - Location is the delivery address
@@ -279,7 +291,13 @@ export type WireInstitutionLocation = {
  * ACH and Wire Institution participants
  */
 export type InstitutionParticipants = {
+    /**
+     * - Array of ACH institutions
+     */
     achParticipants?: ACHInstitution[];
+    /**
+     * - Array of Wire institutions
+     */
     wireParticipants?: WireInstitution[];
 };
 //# sourceMappingURL=institutions.d.ts.map
